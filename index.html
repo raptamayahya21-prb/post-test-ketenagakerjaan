@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Post-Test — Ketenagakerjaan | Ekonomi Kelas XI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --blue:#0E52D6; --blue-dark:#0a3fa8; --ink:#12316b; --muted:#526580;
+    --bg:#f5f8ff; --card:#ffffff; --line:#dce6f8; --green:#1e9e5a; --red:#d33;
+    --amber-bg:#fff3cf;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:'Fredoka',system-ui,-apple-system,'Segoe UI',sans-serif;background:var(--bg);color:var(--ink);}
+  .wrap{max-width:720px;margin:0 auto;padding:20px 16px 64px;}
+  .topbar{display:flex;align-items:center;gap:10px;margin-bottom:16px;}
+  .badge{background:var(--blue);color:#fff;font-size:12px;font-weight:600;letter-spacing:.08em;padding:5px 10px;border-radius:999px;}
+  .badge.sub{background:#e7efff;color:var(--blue);}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:24px;box-shadow:0 2px 10px rgba(18,49,107,.06);}
+  h1{font-size:26px;margin:6px 0 4px;line-height:1.25;}
+  h2{font-size:20px;margin:0 0 6px;}
+  p{line-height:1.55;}
+  .muted{color:var(--muted);}
+  .small{font-size:14px;}
+  label{display:block;font-weight:600;margin:16px 0 6px;}
+  input[type=text],select{width:100%;padding:12px 14px;font-size:16px;font-family:inherit;border:1.5px solid var(--line);border-radius:10px;color:var(--ink);background:#fff;}
+  input[type=text]:focus,select:focus{outline:2px solid var(--blue);border-color:var(--blue);}
+  .btn{display:inline-block;border:0;cursor:pointer;font-family:inherit;font-weight:600;font-size:16px;border-radius:999px;padding:13px 26px;}
+  .btn-primary{background:var(--blue);color:#fff;}
+  .btn-primary:hover{background:var(--blue-dark);}
+  .btn-primary:disabled{background:#9db6e8;cursor:not-allowed;}
+  .btn-ghost{background:#e7efff;color:var(--blue);}
+  .btn-block{width:100%;margin-top:20px;}
+  .hidden{display:none !important;}
+  /* progress */
+  .progress{height:8px;background:#e7efff;border-radius:999px;overflow:hidden;margin:12px 0 4px;}
+  .progress > div{height:100%;background:var(--blue);width:0%;transition:width .25s;}
+  .qmeta{display:flex;justify-content:space-between;align-items:center;font-size:14px;color:var(--muted);margin-bottom:4px;}
+  .qtext{font-size:19px;font-weight:600;line-height:1.45;margin:14px 0 18px;}
+  .opt{display:flex;gap:12px;align-items:flex-start;width:100%;text-align:left;background:#fff;border:1.5px solid var(--line);border-radius:12px;padding:13px 14px;margin-bottom:10px;cursor:pointer;font-family:inherit;font-size:16px;color:var(--ink);line-height:1.45;}
+  .opt:hover{border-color:var(--blue);}
+  .opt.selected{border-color:var(--blue);background:#e7efff;}
+  .opt .letter{flex:0 0 28px;height:28px;border-radius:50%;background:#e7efff;color:var(--blue);font-weight:700;display:flex;align-items:center;justify-content:center;font-size:14px;}
+  .opt.selected .letter{background:var(--blue);color:#fff;}
+  .navrow{display:flex;justify-content:space-between;gap:10px;margin-top:18px;}
+  .grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin:14px 0 4px;}
+  .grid button{border:1.5px solid var(--line);background:#fff;border-radius:10px;padding:10px 0;font-family:inherit;font-weight:600;font-size:15px;color:var(--ink);cursor:pointer;}
+  .grid button.done{background:#e7efff;border-color:var(--blue);color:var(--blue);}
+  .grid button.current{outline:2px solid var(--blue);}
+  details{margin-top:14px;}
+  summary{cursor:pointer;color:var(--blue);font-weight:600;}
+  /* review */
+  .rev-item{display:flex;justify-content:space-between;gap:10px;padding:10px 4px;border-bottom:1px solid var(--line);font-size:15px;}
+  .rev-item .ans{font-weight:700;}
+  .rev-item .miss{color:var(--red);font-weight:700;}
+  .warn{background:var(--amber-bg);border-radius:10px;padding:12px 14px;font-size:15px;margin:12px 0;}
+  /* result */
+  .score-big{font-size:56px;font-weight:700;line-height:1;text-align:center;margin:8px 0 2px;}
+  .score-sub{text-align:center;color:var(--muted);margin:0 0 16px;}
+  .res-item{border:1px solid var(--line);border-radius:12px;padding:14px;margin-bottom:10px;}
+  .res-item.correct{border-color:#bfe6cf;background:#f2fbf5;}
+  .res-item.wrong{border-color:#f3c2c2;background:#fdf4f4;}
+  .res-item .tag{font-size:12px;font-weight:700;letter-spacing:.06em;padding:3px 8px;border-radius:999px;}
+  .res-item.correct .tag{background:#d9f2e2;color:var(--green);}
+  .res-item.wrong .tag{background:#fbe3e3;color:var(--red);}
+  .res-item p{margin:8px 0;}
+  .explain{font-size:15px;color:var(--muted);}
+  .explain b{color:var(--ink);}
+  footer{text-align:center;color:var(--muted);font-size:13px;margin-top:28px;line-height:1.6;}
+  .err{background:#fbe3e3;color:#8c1d1d;border-radius:10px;padding:12px 14px;font-size:15px;margin:12px 0;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="topbar">
+    <span class="badge">POST-TEST</span>
+    <span class="badge sub">EKONOMI KELAS XI</span>
+  </div>
+
+  <!-- LAYAR 1: IDENTITAS -->
+  <section id="screen-start" class="card">
+    <h1>Post-Test: Mengenal Masalah Pengangguran di Indonesia</h1>
+    <p class="muted">Materi Ketenagakerjaan &middot; Media Canva Site &middot; Pendekatan Problem Based Learning</p>
+    <p>25 soal pilihan ganda (A&ndash;E). <b>Tanpa batas waktu</b> &mdash; kerjakan dengan tenang. Jawabanmu terkirim otomatis ke rekap guru begitu kamu menekan tombol kirim di akhir.</p>
+    <label for="nama">Nama lengkap</label>
+    <input type="text" id="nama" placeholder="Tulis nama lengkapmu" autocomplete="name">
+    <label for="kelas">Kelas</label>
+    <select id="kelas">
+      <option value="">-- Pilih kelas --</option>
+      <option value="XI-1">XI-1</option>
+      <option value="XI-2">XI-2</option>
+      <option value="XI-3">XI-3</option>
+    </select>
+    <div id="start-err" class="err hidden">Isi nama lengkap dan pilih kelas dulu sebelum mulai.</div>
+    <button class="btn btn-primary btn-block" id="btn-start">Mulai Post-Test</button>
+  </section>
+
+  <!-- LAYAR 2: SOAL -->
+  <section id="screen-quiz" class="card hidden">
+    <div class="qmeta"><span id="q-counter">Soal 1 dari 25</span><span id="q-answered">0 terjawab</span></div>
+    <div class="progress"><div id="q-bar"></div></div>
+    <p class="qtext" id="q-text"></p>
+    <div id="q-options"></div>
+    <div class="navrow">
+      <button class="btn btn-ghost" id="btn-prev">&larr; Sebelumnya</button>
+      <button class="btn btn-primary" id="btn-next">Berikutnya &rarr;</button>
+    </div>
+    <details>
+      <summary>Lihat semua nomor soal</summary>
+      <div class="grid" id="q-grid"></div>
+      <p class="small muted">Nomor berwarna biru sudah dijawab. Ketuk nomor untuk melompat ke soal itu.</p>
+    </details>
+  </section>
+
+  <!-- LAYAR 3: REVIU -->
+  <section id="screen-review" class="card hidden">
+    <h2>Periksa jawabanmu</h2>
+    <p class="muted">Pastikan semua soal sudah dijawab sebelum dikirim.</p>
+    <div id="review-warn"></div>
+    <div id="review-list"></div>
+    <button class="btn btn-primary btn-block" id="btn-submit">Kirim Jawaban</button>
+    <button class="btn btn-ghost btn-block" id="btn-back-quiz">Kembali ke Soal</button>
+    <div id="submit-err" class="err hidden">Pengiriman gagal. Periksa koneksi internetmu, lalu tekan "Kirim Jawaban" lagi.</div>
+  </section>
+
+  <!-- LAYAR 4: HASIL -->
+  <section id="screen-result" class="card hidden">
+    <h2 style="text-align:center">Hasil Post-Test</h2>
+    <div class="score-big" id="r-score">0/25</div>
+    <p class="score-sub" id="r-pct"></p>
+    <p class="small muted" style="text-align:center" id="r-note">Jawabanmu sudah tercatat di rekap guru.</p>
+    <div id="r-list" style="margin-top:20px"></div>
+    <button class="btn btn-primary btn-block" id="btn-again">Ulangi Post-Test</button>
+  </section>
+
+  <footer>Post-Test &middot; Ekonomi Kelas XI &middot; Ketenagakerjaan<br>Media Canva Site &ldquo;Mengenal Masalah Pengangguran di Indonesia&rdquo;</footer>
+</div>
+
+<script>
+/* ============================================================
+   KONFIGURASI BACKEND (Google Form penerima)
+   Form: "Hasil Post-Test — Ketenagakerjaan (Quiz App)"
+   Entry ID diisi setelah dibaca dari halaman form publik.
+   JANGAN ubah FORM_URL. Isi ENTRY_* dari daftar entry ID.
+   ============================================================ */
+const FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSfQx7MhspuyO5Kp6BAg6iKfK4Ssu69-bHBn3QhOP8wyU0dblg/formResponse";
+const ENTRY = {
+  nama:  "entry.0000000000",   // <-- ISI: entry ID "Nama lengkap"
+  kelas: "entry.0000000000",   // <-- ISI: entry ID "Kelas"
+  skor:  "entry.0000000000",   // <-- ISI: entry ID "Skor (contoh: 21/25)"
+  soal:  Array(25).fill("entry.0000000000") // <-- ISI: entry ID "Soal 1" s.d. "Soal 25" berurutan
+};
+
+/* ============================================================
+   SOAL DRAF — 25 soal (A–E) dari materi terverifikasi
+   slide 04, 06, 08–11 + data BPS Sakernas Mei 2026.
+   DRAF: diganti saat indikator/soal final dari Kak Almas tiba.
+   answer = indeks jawaban benar (0=A, 1=B, 2=C, 3=D, 4=E)
+   ============================================================ */
+const QUESTIONS = [
+{q:"Berapa Tingkat Pengangguran Terbuka (TPT) nasional Indonesia pada Mei 2026 menurut BPS?",o:["6,09%","14,31%","4,65%","17,37%","7,22%"],a:2,e:"TPT nasional Mei 2026 = 4,65% (7,22 juta penganggur). 6,09% itu TPT lulusan, 14,31% itu porsi lulusan dari seluruh penganggur, 17,37% itu TPT usia 15–24 tahun."},
+{q:"Angka 14,31% pada slide 04 sebenarnya menunjukkan apa?",o:["TPT lulusan D4/S1/S2/S3","Porsi lulusan dari seluruh penganggur","TPT usia 15–24 tahun","Persentase lulusan yang sudah bekerja","Tingkat PHK nasional"],a:1,e:"14,31% = porsi lulusan dari total penganggur (≈1,03 juta orang). TPT lulusan yang benar adalah 6,09%."},
+{q:"Sebelum membandingkan dua persentase, empat hal yang perlu dicek adalah definisi & penyebut, periode data, kelompok yang dihitung, dan sumber asli. Manakah yang BUKAN bagian dari empat cek tersebut?",o:["Definisi & penyebut","Periode data","Kelompok yang dihitung","Sumber asli","Besar angkanya saja"],a:4,e:"Besar angka saja tidak cukup — dua persentase belum tentu memakai dasar yang sama, jadi harus dicek dulu keempat hal tersebut."},
+{q:"Mengapa angka 14,31% tidak boleh dibandingkan langsung dengan 4,65%?",o:["Periodenya berbeda","Sumbernya berbeda","Penyebutnya berbeda","Satuannya berbeda","Keduanya dari survei yang berbeda"],a:2,e:"14,31% penyebutnya total penganggur, sedangkan 4,65% penyebutnya angkatan kerja. Keduanya dari sumber dan periode yang sama (BPS, Sakernas Mei 2026)."},
+{q:"Berapa jumlah penganggur di Indonesia pada Mei 2026 menurut BPS?",o:["1,03 juta orang","126 ribu orang","800 juta orang","7,22 juta orang","150 ribu orang"],a:3,e:"7,22 juta orang. 1,03 juta itu jumlah lulusan menganggur, 126 ribu itu angka PHK (Apindo/BPJS), 800 juta itu anak muda dunia dari video Kompas."},
+{q:"Menurut judul slide 06, “Tidak bekerja ≠ selalu menganggur.” Contoh yang TEPAT untuk pernyataan ini adalah …",o:["Lulusan yang sedang mencari kerja","Siswa SMA yang tidak mencari kerja karena masih bersekolah","Pekerja yang sementara tidak bekerja tetapi masih punya pekerjaan","Lulusan yang sudah diterima bekerja tetapi belum mulai","Pekerja yang baru saja terkena PHK dan sedang melamar kerja"],a:1,e:"Siswa yang bersekolah dan tidak mencari kerja termasuk “bukan angkatan kerja”, bukan penganggur. Pilihan A, D, dan E adalah penganggur; C masih terhitung bekerja."},
+{q:"Penduduk usia kerja adalah penduduk berusia …",o:["17 tahun ke atas","18 tahun ke atas","15 tahun ke atas","21 tahun ke atas","25 tahun ke atas"],a:2,e:"Penduduk usia kerja = usia 15 tahun ke atas. Tidak semuanya masuk angkatan kerja."},
+{q:"Pada peta konsep slide 06, apa arti panah putus-putus dari “Skills Mismatch” ke “Pengangguran”?",o:["Skills mismatch pasti menyebabkan pengangguran","Skills mismatch adalah salah satu kemungkinan penyebab pengangguran, bukan hasil yang pasti","Pengangguran menyebabkan skills mismatch","Skills mismatch dan pengangguran adalah kelompok yang sama","Panah itu hanya hiasan, tidak ada artinya"],a:1,e:"Garis biru = klasifikasi, panah putus-putus = kemungkinan hubungan sebab. Skills mismatch BISA menyebabkan pengangguran, tapi bukan hasil yang pasti."},
+{q:"Seorang pelajar SMA yang juga bekerja paruh waktu setelah pulang sekolah, menurut catatan kaki slide 06, statusnya adalah …",o:["Bukan angkatan kerja, karena masih pelajar","Penganggur, karena pekerjaan utamanya sekolah","Masuk angkatan kerja, karena ia melakukan kegiatan ekonomi","Bukan penduduk usia kerja, karena belum lulus","Tidak dapat ditentukan"],a:2,e:"Status ditentukan oleh aktivitas dan kriteria, bukan hanya usia atau ijazah. Pelajar yang juga bekerja dapat masuk angkatan kerja."},
+{q:"Yang dimaksud “angkatan kerja” adalah …",o:["Seluruh penduduk usia kerja","Penduduk usia kerja yang bekerja atau termasuk penganggur","Penduduk yang sudah lulus sekolah atau kuliah","Penduduk yang sedang mencari kerja saja","Penduduk usia kerja yang bersekolah"],a:1,e:"Angkatan kerja = penduduk usia kerja yang bekerja ATAU termasuk penganggur. Yang hanya bersekolah tanpa mencari kerja bukan angkatan kerja."},
+{q:"Menurut definisi BPS, seseorang terhitung “bekerja” bila melakukan kegiatan ekonomi minimal …",o:["1 jam dalam seminggu terakhir","8 jam dalam seminggu terakhir","1 jam dalam sebulan terakhir","35 jam dalam seminggu terakhir","Setiap hari dalam seminggu terakhir"],a:0,e:"Bekerja = kegiatan ekonomi minimal 1 jam dalam seminggu terakhir; termasuk sementara tidak bekerja."},
+{q:"Rumus Tingkat Pengangguran Terbuka (TPT) yang benar adalah …",o:["Jumlah penganggur / jumlah penduduk usia kerja × 100%","Jumlah penganggur / jumlah angkatan kerja × 100%","Jumlah angkatan kerja / jumlah penganggur × 100%","Jumlah lulusan menganggur / jumlah lulusan × 100%","Jumlah penganggur / jumlah penduduk total × 100%"],a:1,e:"Penyebut TPT adalah angkatan kerja, BUKAN seluruh penduduk usia kerja. Inilah kesalahan paling umum."},
+{q:"Di sebuah daerah ada 240 penduduk usia kerja: 180 bekerja, 20 mencari kerja, dan 40 hanya bersekolah. Berapa TPT daerah itu?",o:["8,3%","10%","11,1%","20%","12,5%"],a:1,e:"Angkatan kerja = 180 + 20 = 200 orang (40 yang hanya sekolah bukan angkatan kerja). TPT = 20 / 200 × 100% = 10%."},
+{q:"Menurut KONSEP 04 slide 08, berikut ini yang BUKAN kriteria penganggur adalah …",o:["Sedang mencari kerja","Menyiapkan usaha","Putus asa mencari kerja","Diterima bekerja tetapi belum mulai","Sedang bersekolah dan tidak mencari kerja"],a:4,e:"Penganggur = belum bekerja DAN memenuhi kriteria (mencari kerja, menyiapkan usaha, putus asa mencari, atau diterima tetapi belum mulai). Yang hanya bersekolah tanpa mencari kerja bukan penganggur."},
+{q:"Rani baru lulus. Ia sedang membandingkan dua lowongan dan menunggu jadwal wawancara. Jenis pengangguran Rani adalah …",o:["Struktural","Siklis","Musiman","Friksional","Terselubung"],a:3,e:"Friksional = masa transisi, lulusan baru mencari pekerjaan pertama dan menunggu proses seleksi yang sesuai."},
+{q:"Sebuah lowongan desain membutuhkan perangkat digital baru, tetapi para pelamar belum menguasainya. Jenis pengangguran ini adalah …",o:["Friksional","Struktural","Siklis","Musiman","Sukarela"],a:1,e:"Struktural = perubahan kebutuhan, keterampilan pelamar belum sesuai dengan kebutuhan lowongan yang berubah."},
+{q:"Saat permintaan melemah, usaha mengurangi produksi sehingga kebutuhan pekerja turun. Jenis pengangguran ini adalah …",o:["Friksional","Struktural","Siklis / konjungtural","Musiman","Teknologi"],a:2,e:"Siklis/konjungtural = mengikuti siklus ekonomi; saat ekonomi melemah, kebutuhan pekerja turun."},
+{q:"Pekerja muda di usaha pengolahan hasil panen menunggu musim produksi berikutnya. Jenis pengangguran ini adalah …",o:["Friksional","Struktural","Siklis","Musiman","Terbuka"],a:3,e:"Musiman = mengikuti pola waktu tertentu, pekerja menunggu musim produksi berikutnya."},
+{q:"Yang dimaksud “skills mismatch” adalah …",o:["Jumlah lowongan lebih sedikit daripada jumlah pelamar","Kompetensi dari pendidikan atau pelatihan belum sesuai dengan kebutuhan industri","Upah yang ditawarkan terlalu rendah","Lokasi tempat kerja terlalu jauh","Syarat pengalaman kerja terlalu tinggi"],a:1,e:"Skills mismatch = kesenjangan keterampilan, kompetensi belum cocok dengan kebutuhan kerja. Akibatnya lowongan tetap ada tetapi pelamar belum sesuai."},
+{q:"Angka “126 ribu PHK” pada slide 10 bersumber dari …",o:["BPS, Sakernas Mei 2026","Apindo berbasis data BPJS (Jan–Mei 2026)","Kemnaker, catatan resmi","Bank Dunia","Survei media sosial"],a:1,e:"126 ribu PHK = angka Apindo berbasis data BPJS (Jan–Mei 2026). Catatan resmi Kemnaker berbeda — kedua sumber perlu dibandingkan. Dan PHK tidak otomatis berarti menganggur."},
+{q:"Berikut ini yang termasuk hambatan masuk kerja, KECUALI …",o:["Informasi lowongan terbatas","Lokasi tempat kerja jauh","Biaya mencari kerja","Syarat pengalaman kerja","Banyaknya lowongan yang tersedia"],a:4,e:"Informasi terbatas, lokasi jauh, biaya mencari kerja, dan syarat pengalaman mempersempit akses masuk kerja. Banyaknya lowongan justru mempermudah, bukan menghambat."},
+{q:"Seorang lulusan menganggur. Sikap yang tepat menurut slide 10 adalah …",o:["Menyalahkan lulusan karena kurang berusaha","Mencari bukti: apakah ada skills mismatch atau hambatan akses, dan membedakan dugaan sebab dari yang sudah dibuktikan","Menyimpulkan pasti karena kurangnya lowongan","Menganggap semua pengangguran penyebabnya sama","Tidak perlu mencari tahu penyebabnya"],a:1,e:"“Cari bukti; jangan menyalahkan individu.” Tujuan slide 10: menyusun dugaan sebab dan membedakannya dari hubungan yang sudah dibuktikan."},
+{q:"Program Magang Nasional tahun 2026 bernama …",o:["MagangHub 2026","Pelatihan Vokasi Nasional","Program Kartu Kerja","Beasiswa Magang","Magang Merdeka"],a:0,e:"MagangHub 2026 = Program Magang Nasional; pengalaman kerja dan pendampingan menjembatani transisi ke kerja."},
+{q:"Pelatihan vokasi berbasis kompetensi bertujuan …",o:["Memberi jaminan penempatan kerja","Membangun kemampuan praktis untuk pekerjaan tertentu","Memberi bantuan uang tunai kepada penganggur","Mengurangi jumlah angkatan kerja","Memperbanyak jumlah peserta program"],a:1,e:"Pelatihan vokasi membangun kemampuan praktis untuk pekerjaan tertentu — cek kurikulum, praktik, asesmen, dan keterhubungan dengan kebutuhan industri. Tidak ada jaminan penempatan kerja."},
+{q:"Dua pertanyaan utama untuk menilai sebuah program pemerintah menurut slide 11 adalah …",o:["Berapa biayanya dan siapa penyelenggaranya","Siapa yang terjangkau dan apa hasil setelah program","Berapa banyak pesertanya dan seberapa terkenal namanya","Di mana lokasinya dan kapan dimulai","Siapa menterinya dan berapa anggarannya"],a:1,e:"01 Siapa yang terjangkau? (akses wilayah, informasi, biaya, kelompok yang belum terlayani) dan 02 Apa hasil setelah program? (kompetensi meningkat, transisi ke kerja, kecocokan kerja, keberlanjutan kerja). “Program yang baik: bukan hanya banyak peserta.”"}
+];
+
+const LETTERS = ["A","B","C","D","E"];
+const TOTAL = QUESTIONS.length;
+let student = {nama:"", kelas:""};
+let answers = Array(TOTAL).fill(null); // indeks opsi atau null
+let current = 0;
+let submitted = false;
+
+const $ = id => document.getElementById(id);
+function show(id){ ["screen-start","screen-quiz","screen-review","screen-result"].forEach(s=>$(s).classList.toggle("hidden", s!==id)); window.scrollTo(0,0); }
+
+/* ---------- Layar 1 ---------- */
+$("btn-start").addEventListener("click", ()=>{
+  const nama = $("nama").value.trim();
+  const kelas = $("kelas").value;
+  if(!nama || !kelas){ $("start-err").classList.remove("hidden"); return; }
+  $("start-err").classList.add("hidden");
+  student = {nama, kelas};
+  current = 0;
+  renderQuestion();
+  show("screen-quiz");
+});
+
+/* ---------- Layar 2 ---------- */
+function renderQuestion(){
+  const q = QUESTIONS[current];
+  $("q-counter").textContent = "Soal " + (current+1) + " dari " + TOTAL;
+  const done = answers.filter(a=>a!==null).length;
+  $("q-answered").textContent = done + " terjawab";
+  $("q-bar").style.width = (done/TOTAL*100) + "%";
+  $("q-text").textContent = q.q;
+  const box = $("q-options");
+  box.innerHTML = "";
+  q.o.forEach((opt,i)=>{
+    const b = document.createElement("button");
+    b.className = "opt" + (answers[current]===i ? " selected" : "");
+    b.innerHTML = '<span class="letter">'+LETTERS[i]+'</span><span></span>';
+    b.lastChild.textContent = opt;
+    b.addEventListener("click", ()=>{
+      answers[current] = i;
+      renderQuestion();
+      // lanjut otomatis ke soal berikut (kecuali soal terakhir)
+      if(current < TOTAL-1){ setTimeout(()=>{ current++; renderQuestion(); }, 180); }
+    });
+    box.appendChild(b);
+  });
+  $("btn-prev").disabled = current===0;
+  $("btn-prev").style.visibility = current===0 ? "hidden" : "visible";
+  $("btn-next").textContent = current===TOTAL-1 ? "Periksa Jawaban \u2192" : "Berikutnya \u2192";
+  // grid navigator
+  const grid = $("q-grid");
+  grid.innerHTML = "";
+  for(let i=0;i<TOTAL;i++){
+    const g = document.createElement("button");
+    g.textContent = i+1;
+    if(answers[i]!==null) g.classList.add("done");
+    if(i===current) g.classList.add("current");
+    g.addEventListener("click", ()=>{ current=i; renderQuestion(); });
+    grid.appendChild(g);
+  }
+}
+$("btn-prev").addEventListener("click", ()=>{ if(current>0){ current--; renderQuestion(); } });
+$("btn-next").addEventListener("click", ()=>{
+  if(current<TOTAL-1){ current++; renderQuestion(); }
+  else { renderReview(); show("screen-review"); }
+});
+
+/* ---------- Layar 3 ---------- */
+function renderReview(){
+  const missing = [];
+  answers.forEach((a,i)=>{ if(a===null) missing.push(i+1); });
+  const warn = $("review-warn");
+  if(missing.length){
+    warn.innerHTML = '<div class="warn">Masih ada <b>'+missing.length+' soal belum dijawab</b>: nomor ' + missing.join(", ") + '. Ketuk nomornya di bawah untuk kembali menjawab.</div>';
+  } else {
+    warn.innerHTML = '<div class="warn" style="background:#e9f7ef">Semua 25 soal sudah dijawab. Tekan "Kirim Jawaban" untuk mengirim.</div>';
+  }
+  const list = $("review-list");
+  list.innerHTML = "";
+  answers.forEach((a,i)=>{
+    const div = document.createElement("div");
+    div.className = "rev-item";
+    div.innerHTML = '<span>Soal '+(i+1)+'</span><span class="'+(a===null?'miss':'ans')+'">'+(a===null?'Belum dijawab':'Jawaban '+LETTERS[a])+'</span>';
+    div.style.cursor = "pointer";
+    div.addEventListener("click", ()=>{ current=i; renderQuestion(); show("screen-quiz"); });
+    list.appendChild(div);
+  });
+  $("btn-submit").disabled = missing.length>0;
+}
+$("btn-back-quiz").addEventListener("click", ()=>{ renderQuestion(); show("screen-quiz"); });
+
+$("btn-submit").addEventListener("click", ()=>{
+  if(submitted) return;
+  const missing = answers.filter(a=>a===null).length;
+  if(missing>0) return;
+  submitted = true;
+  $("btn-submit").disabled = true;
+  $("btn-submit").textContent = "Mengirim…";
+  $("submit-err").classList.add("hidden");
+  const score = answers.reduce((s,a,i)=> s + (a===QUESTIONS[i].a ? 1 : 0), 0);
+  // Kirim via form HTML tersembunyi (paling andal untuk Google Forms)
+  const form = document.createElement("form");
+  form.action = FORM_URL; form.method = "POST"; form.target = "submit_iframe"; form.style.display = "none";
+  const iframe = document.createElement("iframe");
+  iframe.name = "submit_iframe"; iframe.style.display = "none";
+  document.body.appendChild(iframe); document.body.appendChild(form);
+  const fields = {};
+  fields[ENTRY.nama] = student.nama;
+  fields[ENTRY.kelas] = student.kelas;
+  fields[ENTRY.skor] = score + "/" + TOTAL;
+  answers.forEach((a,i)=>{ fields[ENTRY.soal[i]] = LETTERS[a]; });
+  Object.keys(fields).forEach(k=>{
+    const input = document.createElement("input");
+    input.type = "hidden"; input.name = k; input.value = fields[k];
+    form.appendChild(input);
+  });
+  let done = false;
+  const finish = ()=>{ if(done) return; done = true; renderResult(score); show("screen-result"); };
+  iframe.addEventListener("load", ()=> setTimeout(finish, 400));
+  setTimeout(finish, 5000); // pengaman: tampilkan hasil walau iframe lambat
+  try { form.submit(); }
+  catch(err){ done = true; submitted = false; $("btn-submit").disabled = false; $("btn-submit").textContent = "Kirim Jawaban"; $("submit-err").classList.remove("hidden"); }
+});
+
+/* ---------- Layar 4 ---------- */
+function renderResult(score){
+  $("r-score").textContent = score + "/" + TOTAL;
+  const pct = Math.round(score/TOTAL*100);
+  $("r-pct").textContent = pct + "% benar";
+  const list = $("r-list");
+  list.innerHTML = "";
+  QUESTIONS.forEach((q,i)=>{
+    const ok = answers[i]===q.a;
+    const div = document.createElement("div");
+    div.className = "res-item " + (ok ? "correct" : "wrong");
+    const tag = ok ? "BENAR" : "SALAH";
+    div.innerHTML = '<span class="tag">'+tag+'</span> <b>Soal '+(i+1)+'</b>' +
+      '<p>'+q.q+'</p>' +
+      '<p>Jawabanmu: <b>'+LETTERS[answers[i]]+'. '+q.o[answers[i]]+'</b>' + (ok ? '' : '<br>Jawaban benar: <b>'+LETTERS[q.a]+'. '+q.o[q.a]+'</b>') + '</p>' +
+      '<p class="explain"><b>Pembahasan:</b> '+q.e+'</p>';
+    list.appendChild(div);
+  });
+}
+$("btn-again").addEventListener("click", ()=>{
+  answers = Array(TOTAL).fill(null);
+  submitted = false;
+  $("nama").value = ""; $("kelas").value = "";
+  $("btn-submit").disabled = false; $("btn-submit").textContent = "Kirim Jawaban";
+  current = 0;
+  show("screen-start");
+});
+</script>
+</body>
+</html>
